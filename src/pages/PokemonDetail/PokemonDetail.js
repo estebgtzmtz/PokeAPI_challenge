@@ -21,7 +21,6 @@ const PokemonDetail = () => {
     useEffect(() => {
         const getPokemon = async () => {
             const { data } = await getPokemonDetails(pokemonID);
-            console.log(data);
             setPokemon(data)
         }
         getPokemon();

@@ -30,7 +30,7 @@ const PokemonAbilities = ({ ability }) => {
             <h1>{ability.name}</h1>
             {language ? <p>{firstLanguage}</p> : <p>{secondLanguage}</p>}
             <button onClick={handleChangeLanguage}>
-                {language ? 'Change Language' : 'Sprache ändern'}
+                {language===true ? 'Sprache ändern': 'Change Language'}
             </button>
         </AbilitiesContainer>
     )

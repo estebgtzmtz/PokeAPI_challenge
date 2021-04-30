@@ -20,24 +20,50 @@ const PokemonsList = () => {
 
         }
         setPokemonImage([])
+        setpokemonGralInfo([])
 
         const getPokemons = async () => {
             const { data: { results } } = await getPokemonsList();
             setpokemonGralInfo(results);
             results.map(async el => {
-                const data = await getPokemonImage(el.url.slice(34, el.url.length-1))
+                const data = await getPokemonImage(el.url.slice(34, el.url.length - 1))
                 setPokemonImage(pokemonImage => [...pokemonImage, data])
             })
         }
         getPokemons()
     }, [])
 
-    const getPokemonImage = async (id) => {
-        const data = await getPokemonDetails(id)
-        return data;
+
+    const handleNextPage = async () => {
+        setPokemonImage([])
+        setpokemonGralInfo([])
+        const lastIDPokemon = pokemonGralInfo[4].url.slice(34, pokemonGralInfo[4].url.length - 1)
+        const { data: { results } } = await getPokemonsList(lastIDPokemon);
+        setpokemonGralInfo(results);
+        results.map(async el => {
+            const data = await getPokemonImage(el.url.slice(34, el.url.length - 1))
+            setPokemonImage(pokemonImage => [...pokemonImage, data])
+        })
     }
 
-    console.log(pokemonGralInfo);
+    const handlePrevPage = async () => {
+        setPokemonImage([])
+        setpokemonGralInfo([])
+        const lastIDPokemon = pokemonGralInfo[4].url.slice(34, pokemonGralInfo[4].url.length - 1)
+        const { data: { results } } = await getPokemonsList(lastIDPokemon);
+        setpokemonGralInfo(results);
+        results.map(async el => {
+            const data = await getPokemonImage(el.url.slice(34, el.url.length - 1))
+            setPokemonImage(pokemonImage => [...pokemonImage, data])
+        })
+    }
+
+    const getPokemonImage = async (id) => {
+        console.log(id);
+        const data = await getPokemonDetails(id)
+        console.log('de aqui son las imgs', data);
+        return data;
+    }
 
     return (
         <Wrapper>
@@ -48,8 +74,13 @@ const PokemonsList = () => {
             </div>
             <div className='nameContainer'>
                 {pokemonGralInfo.map((el) => (
-                    <PokemonMainInfo name={el.name} id={el.url.slice(34, el.url.length-1)}/>
+                    <PokemonMainInfo name={el.name} id={el.url.slice(34, el.url.length - 1)} />
                 ))}
+            </div>
+
+            <div>
+                <button>prev</button>
+                <button onClick={handleNextPage}>next</button>
             </div>
         </Wrapper>
     )
