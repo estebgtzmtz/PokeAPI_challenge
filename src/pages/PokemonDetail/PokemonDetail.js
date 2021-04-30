@@ -10,6 +10,7 @@ import { PokemonDetailContainer } from './PokemonDetail.styles'
 //import components
 import ImageName from '../../components/PokemonDetailComponents/PokemonImageAndName/ImageName';
 import PokemonAbilities from '../../components/PokemonDetailComponents/PokemonAbilities/PokemonAbilities';
+import PokemonImages from '../../components/PokemonDetailComponents/PokemonImages/PokemonImages';
 
 const PokemonDetail = () => {
 
@@ -26,20 +27,26 @@ const PokemonDetail = () => {
         getPokemon();
     }, [pokemonID])
 
-
-    console.log('pokemon on detail', pokemon);
-
     return (
         <PokemonDetailContainer>
-            <div onClick={() => history.push('/')} >
-                atras
+            <div onClick={() => history.push('/')}>
+                <img className='goBack' src="https://cdn2.iconfinder.com/data/icons/simple-circular-icons-line/84/Left_Arrow_-512.png" alt="https://cdn2.iconfinder.com/data/icons/simple-circular-icons-line/84/Left_Arrow_-512.png"/>
             </div>
-            {pokemon && pokemon.sprites && (
-                <ImageName img={pokemon.sprites.front_default} id={pokemon.id} name={pokemon.name} />
-            )}
+            <div>
+                {pokemon && pokemon.sprites && (
+                    <ImageName img={pokemon.sprites.front_default} id={pokemon.id} name={pokemon.name} />
+                )}
+            </div>
+
             {pokemon && pokemon.abilities && (
                 <PokemonAbilities ability={pokemon.abilities[0].ability} />
             )}
+
+            <div>
+                {pokemon && pokemon.sprites && (
+                    <PokemonImages imgs={pokemon.sprites} />
+                )}
+            </div>
         </PokemonDetailContainer>
     )
 

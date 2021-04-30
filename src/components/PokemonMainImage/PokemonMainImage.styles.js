@@ -5,7 +5,6 @@ export const MainImageContainer = styled.div `
     justify-content: center;
     width: auto;
     height: 90%;
-    background-color: red;
     img{
         height: 100px;
     }

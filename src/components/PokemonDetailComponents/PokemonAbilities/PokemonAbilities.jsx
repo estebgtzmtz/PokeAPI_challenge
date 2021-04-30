@@ -13,13 +13,14 @@ const PokemonAbilities = ({ ability }) => {
     const [language, setLanguage] = useState(true)
 
     useEffect(() => {
+        setLanguage(true)
         const getAbility = async () => {
             const { data } = await getAbilities(ability.url.slice(34, ability.url.length - 1))
             setFirstLanguage(data.effect_entries[0].effect)
             setSecondLanguage(data.effect_entries[1].effect)
         }
         getAbility();
-    }, [])
+    }, [ability.url])
 
     const handleChangeLanguage = () => {
         setLanguage(!language)
@@ -28,9 +29,12 @@ const PokemonAbilities = ({ ability }) => {
     return (
         <AbilitiesContainer>
             <h1>{ability.name}</h1>
-            {language ? <p>{firstLanguage}</p> : <p>{secondLanguage}</p>}
+            {language ?
+                <p>{firstLanguage}</p> :
+                <p>{secondLanguage}</p>
+            }
             <button onClick={handleChangeLanguage}>
-                {language===true ? 'Sprache ändern': 'Change Language'}
+                Change Language
             </button>
         </AbilitiesContainer>
     )
